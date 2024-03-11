@@ -2,9 +2,9 @@
 Invitaciones enviadas.
 
 Jorge:
-Modelos :white_check_mark: __
-Creación comando make:views :white_check_mark: __
-Instalación Laravel Auth, laravel ui y bootstrap :white_check_mark: __
+Modelos :white_check_mark: <br />
+Creación comando make:views :white_check_mark: <br />
+Instalación Laravel Auth, laravel ui y bootstrap :white_check_mark: <br />
 
 
 
