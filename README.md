@@ -1,7 +1,7 @@
 11/03/24
 Invitaciones enviadas.
 
-Jorge:
+Jorge: <br />
 Modelos :white_check_mark: <br />
 Creación comando make:views :white_check_mark: <br />
 Instalación Laravel Auth, laravel ui y bootstrap :white_check_mark: <br />
