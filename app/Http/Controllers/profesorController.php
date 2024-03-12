@@ -62,7 +62,9 @@ class profesorController extends Controller
         $validacion = $request->validate([
             'nombre' => 'required|string|max:20',
             'apellido' => 'string|max:15',
+            'dni'=> 'max:9',
             'fecha_nacimiento' => 'required',
+            'telefono' => 'max:9'
 
         ],[
             'nombre.required' => 'Debes insertar un dato',
@@ -70,7 +72,9 @@ class profesorController extends Controller
             'nombre.max' => 'Has excedido el numero de caracteres. El maximo es 20',
             'apellido.string' => 'El dato debe ser una cadena de caracteres',
             'apellido.max' => 'Has excedido el numero de caracteres. El maximo es 15',
-            'fecha_nacimiento.required' => 'Debes insertar una fecha', 
+            'dni.max' => 'Has excedido el numero de caracteres. El maximo es 9',
+            'fecha_nacimiento.required' => 'Debes insertar una fecha',
+            'telefono.max' => 'Has excedido el numero de caracteres. El maximo es 9'
 
         ]);
         Profesor::create([
