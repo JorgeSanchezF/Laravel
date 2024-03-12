@@ -1,11 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Profesor;
+use App\Models\User;
+use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 
 class profesorController extends Controller
 {
+
+    public function __construct(){
+        // Solo es posible realizar alguna de las funciones de CochesController si estoy autenticado
+        $this->middleware('auth'); 
+        // Solo es posible realizar alguna de las funciones de CochesController si el usuario
+        // tiene el rol de profesor o de alumno
+        $this->middleware(['role:Profesor|Alumno']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +24,20 @@ class profesorController extends Controller
      */
     public function index()
     {
-        return view('profesor.index');
+        if(auth()->user()->hasRole('Profesor')){
+            $profesores = Profesor::orderByDesc('nombre')->get();
+        }else if (auth()->user()->hasRole('Alumno')){
+            $profesores = Profesor::where('id','<',3)->orderByDesc('nombre')->get();
+        }else{
+            $profesores = Profesor::orderByDesc('nombre')->get();
+        }
+        
+        // DB::select('SELECT * FROM coches WHERE id > 1')->get();
+
+        return view('profesor.index', compact('profesores'));
+        // return view('coches.index', [
+        //     'coches' => $coches,
+        // ]);
     }
 
     /**
@@ -23,7 +47,8 @@ class profesorController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('profesor.create', compact('users'));
     }
 
     /**
@@ -34,7 +59,30 @@ class profesorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validacion = $request->validate([
+            'nombre' => 'required|string|max:20',
+            'apellido' => 'string|max:15',
+            'fecha_nacimiento' => 'required',
+
+        ],[
+            'nombre.required' => 'Debes insertar un dato',
+            'nombre.string' => 'El dato debe ser una cadena de caracteres',
+            'nombre.max' => 'Has excedido el numero de caracteres. El maximo es 20',
+            'apellido.string' => 'El dato debe ser una cadena de caracteres',
+            'apellido.max' => 'Has excedido el numero de caracteres. El maximo es 15',
+            'fecha_nacimiento.required' => 'Debes insertar una fecha', 
+
+        ]);
+        Profesor::create([
+            'nombre' => $validacion['nombre'],
+            'apellido' => $validacion['apellido'],
+            'dni' => $validacion['dni'],
+            'fecha_nacimiento' => $request->fecha_nacimiento,
+            'telefono' => $validacion['telefono']
+        
+         ]);
+         return redirect()->route('profesores-index');
+
     }
 
     /**
@@ -56,7 +104,8 @@ class profesorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $profesor = Profesor::find($id);
+        return view('profesor.edit', compact('profesor'));
     }
 
     /**
@@ -68,7 +117,16 @@ class profesorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $profesor = Profesor::find($id);
+        $profesor->update([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apaellido,
+            'DNI' => $request->dni,
+            'fecha_nacimiento' => $request->fecha_nacimiento,
+            'telefono' => $request->telefono,
+            
+        ]);
+        return redirect()->route('profesor-index');
     }
 
     /**
@@ -79,6 +137,8 @@ class profesorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Profesor::destroy($id);
+
+       return redirect()->route('profesor-index');
     }
 }
