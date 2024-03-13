@@ -89,6 +89,6 @@ Route::prefix('/profesor')->group(function () {
     Route::get('/delete/{id}', [App\Http\Controllers\profesorController::class, 'delete'])->name('profesor_delete');
 });
 
-Auth::routes();
+Auth::routes();//Aqui me salta error en VSCode pero la página se lanza (Jorge)
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

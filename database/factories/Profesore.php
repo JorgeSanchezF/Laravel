@@ -30,10 +30,10 @@ class ProfesoreFactory extends Factory
          */
         return [
             'nombre' => $this->faker->name(),
-            'apellidos' => $this->faker->name(),
-            'fecha_nacimiento' => date(),//now
-            'dni' => $this->faker->name(),
-            'telefono' => $this->faker->numero(),
+            'apellidos' => $this->faker->lastname(),//modificado para que sean apellido (Jorge)
+            'fecha_nacimiento' => $this->faker->dateTimeBetween('-50 years', '-25 years'),//modificado para ser  un rango de años en vez de fecha de hoy (Jorge)
+            'dni' => $this->faker->randomNumber(9, true),//modificado para tener tamaño de DNI, letra sustituida por numero (Jorge)
+            'telefono' => $this->faker->phoneNumber(),//modificado para que sea con formato telefono (Jorge)
             'user_id' => $this->faker->randomElements($todos_id)[0], // un numero del 0 al 9
             // 'user_id' => User::factory()
             // $this->faker->randomElements($todos_id);
