@@ -13,7 +13,7 @@ class entregaController extends Controller
      */
     public function index()
     {
-        return view('entrega.index');
+        return view('file.index', compact('file'));
     }
 
     /**

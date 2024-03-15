@@ -25,8 +25,8 @@
     <a href="{{route('profesor_index')}}">Profesores</a><!--enlace temporal para ir a profesores -->
     <br>
     <a href="{{route('alumno_index')}}">Alumnos</a><!--enlace temporal para ir a alumnos -->
-
-
+<br>
+<a href="{{route('entrega_index')}}">Ir a entregas</a><!--enlace temporal para ir a alumnos -->
 
 
 

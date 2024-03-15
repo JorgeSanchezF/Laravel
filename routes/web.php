@@ -66,7 +66,7 @@ Route::prefix('/documento')->group(function () {
     Route::get('/delete/{id}', [App\Http\Controllers\documentoController::class, 'delete'])->name('documento_delete');
 });
 Route::prefix('/entrega')->group(function () {
-    Route::get('/index', [App\Http\Controllers\entregaController::class, 'index'])->name('entrega_index');
+    Route::get('/index', [App\Http\Controllers\FileController::class, 'index'])->name('entrega_index');
     Route::post('/store', [App\Http\Controllers\entregaController::class, 'store'])->name('entrega_store');
     Route::get('/create', [App\Http\Controllers\entregaController::class, 'create'])->name('entrega_create');
     Route::get('/edit/{id}', [App\Http\Controllers\entregaController::class, 'edit'])->name('entrega_edit');
